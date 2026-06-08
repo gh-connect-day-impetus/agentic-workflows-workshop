@@ -1,0 +1,5 @@
+customer_id,event_date,loyalty_tier,region_code,event_type
+C-1001,2026-06-07,gold,NA,purchase
+C-1002,2026-06-07,silver,,support_case
+C-1003,2026-06-07,platinum,EU,renewal
+

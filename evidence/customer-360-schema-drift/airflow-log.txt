@@ -1,0 +1,8 @@
+[2026-06-08 01:15:03] INFO - Starting task transform_customer_events for DAG customer_360_daily
+[2026-06-08 01:15:11] INFO - Reading input crm/customer_events/date=2026-06-07/
+[2026-06-08 01:15:17] WARN - Input schema differs from previous successful run
+[2026-06-08 01:15:18] ERROR - KeyError: required column customer_tier not found
+[2026-06-08 01:15:18] ERROR - Available columns: customer_id,event_date,loyalty_tier,region_code,event_type
+[2026-06-08 01:15:19] INFO - Marking task transform_customer_events as failed
+[2026-06-08 01:15:19] INFO - Downstream tasks skipped: build_customer_360, publish_retention_dashboard
+

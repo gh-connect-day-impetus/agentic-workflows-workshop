@@ -1,0 +1,41 @@
+name: Customer 360 Schema Drift RCA
+description: Trigger agent council analysis for a customer pipeline schema drift incident.
+title: "[Agent Council][Schema Drift] Pending participant"
+labels:
+  - "workshop:agent-council"
+  - "scenario:customer-360-schema-drift"
+body:
+  - type: textarea
+    id: scenario
+    attributes:
+      label: Prepared scenario
+      description: Leave this text unchanged for the workshop.
+      value: |
+        ## Scenario
+
+        The nightly `customer_360_daily` pipeline failed after yesterday's CRM ingestion release.
+
+        ## Business impact
+
+        The Customer Retention Overview dashboard is stale before a Monday leadership review.
+
+        ## Symptoms
+
+        - Airflow task `transform_customer_events` failed.
+        - CRM export renamed `customer_tier` to `loyalty_tier`.
+        - Some records now contain missing `region_code`.
+        - SLA breach risk is high.
+
+        ## Evidence pack
+
+        - `evidence/customer-360-schema-drift/airflow-log.txt`
+        - `evidence/customer-360-schema-drift/schema-before.json`
+        - `evidence/customer-360-schema-drift/schema-after.json`
+        - `evidence/customer-360-schema-drift/sample-bad-records.csv`
+        - `evidence/customer-360-schema-drift/impact-summary.md`
+
+        ## Council ask
+
+        Use agent council to identify the likely root cause, compare remediation options, recommend the safest next action, list missing evidence, and call out dissent between council roles.
+    validations:
+      required: true

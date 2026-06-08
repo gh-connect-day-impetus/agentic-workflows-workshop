@@ -1,0 +1,9 @@
+Plan excerpt for daily_revenue_rollup:
+
+- fact.events scan: full table scan
+- partitions scanned: 730 of 730
+- join strategy: broadcast customers, shuffle events
+- output rows: unchanged from prior run
+- dominant stage: event scan and shuffle
+- warning: missing partition predicate on fact.events.event_date
+

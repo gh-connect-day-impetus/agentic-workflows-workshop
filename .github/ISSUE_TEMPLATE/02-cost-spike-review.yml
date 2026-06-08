@@ -1,0 +1,41 @@
+name: Cloud Data Job Cost Spike Review
+description: Trigger agent council analysis for a cloud data job cost spike.
+title: "[Agent Council][Cost Spike] Pending participant"
+labels:
+  - "workshop:agent-council"
+  - "scenario:cloud-cost-spike"
+body:
+  - type: textarea
+    id: scenario
+    attributes:
+      label: Prepared scenario
+      description: Leave this text unchanged for the workshop.
+      value: |
+        ## Scenario
+
+        The `daily_revenue_rollup` job still succeeds, but runtime and cloud cost increased sharply after a query change.
+
+        ## Business impact
+
+        The finance analytics platform is still available, but the data platform team is breaching its cost guardrail.
+
+        ## Symptoms
+
+        - Runtime increased from 22 minutes to 68 minutes.
+        - Estimated compute cost increased by 41%.
+        - Output row count is unchanged.
+        - The latest query change removed an event-date predicate from one join.
+
+        ## Evidence pack
+
+        - `evidence/cloud-cost-spike/query-before.sql`
+        - `evidence/cloud-cost-spike/query-after.sql`
+        - `evidence/cloud-cost-spike/query-plan-after.txt`
+        - `evidence/cloud-cost-spike/cost-summary.md`
+        - `evidence/cloud-cost-spike/sla-note.md`
+
+        ## Council ask
+
+        Use agent council to identify the likely cost driver, compare remediation options, recommend the safest next action, list missing evidence, and call out dissent between council roles.
+    validations:
+      required: true

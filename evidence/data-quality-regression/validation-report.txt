@@ -1,0 +1,13 @@
+Validation report: revenue_health_daily
+
+Checks:
+- unique invoice_id: failed
+- total revenue within tolerance: failed for APAC
+- null amount: passed
+- region completeness: passed
+
+Details:
+- Duplicate invoice_id detected: INV-1002
+- APAC dashboard revenue is 17% lower than source export
+- Deduplication rule changed in the latest reconciliation release
+

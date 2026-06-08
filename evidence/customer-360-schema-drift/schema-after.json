@@ -1,0 +1,12 @@
+{
+  "dataset": "crm.customer_events",
+  "version": "2026-06-07",
+  "fields": [
+    {"name": "customer_id", "type": "string", "required": true},
+    {"name": "event_date", "type": "date", "required": true},
+    {"name": "loyalty_tier", "type": "string", "required": true},
+    {"name": "region_code", "type": "string", "required": false},
+    {"name": "event_type", "type": "string", "required": true}
+  ]
+}
+

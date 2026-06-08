@@ -1,0 +1,7 @@
+invoice_id,region,amount,source_batch
+INV-1001,APAC,1200,batch-77
+INV-1002,APAC,890,batch-77
+INV-1002,APAC,890,batch-77
+INV-1003,EMEA,430,batch-77
+INV-1004,NA,760,batch-77
+
