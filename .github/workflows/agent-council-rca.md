@@ -15,7 +15,7 @@ permissions:
 
 engine:
   id: copilot
-  model: copilot
+  model: claude-sonnet-4.6
 
 safe-outputs:
   add-comment:
@@ -193,7 +193,7 @@ Return a concise analysis in the required `Claude Council View` format. Do not w
 
 ## agent: `gpt-platform-cost-analyst`
 ---
-model: gpt-5
+model: gpt-5-mini
 description: Independent GPT analysis focused on platform cost, performance, and safe remediation.
 ---
 
