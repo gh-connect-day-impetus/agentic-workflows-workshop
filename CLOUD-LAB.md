@@ -2,7 +2,7 @@
 
 This lab runs a true GitHub Agentic Workflow.
 
-You will create an issue from a prepared scenario. GitHub Actions will run the `gh-aw` workflow, the agent council will inspect the issue and evidence pack, and the workflow will post one final comment.
+You will create an issue from a prepared scenario. GitHub Actions will run the `gh-aw` workflow, Gemini, Claude, and GPT council members will inspect the issue and evidence pack, and Copilot will post the final synthesis.
 
 ## What You Will Do
 
@@ -23,23 +23,21 @@ Issue created
 -> scenario labels are applied
 -> GitHub Actions starts the compiled gh-aw workflow
 -> the workflow reads the issue and evidence files
--> DataOps, Cost, and Governance council roles analyze independently
--> the arbiter posts one final issue comment
+-> Gemini, Claude, and GPT council members analyze independently
+-> each model posts its own council view
+-> Copilot posts the final synthesis
 ```
 
 The issue title starts with `Pending participant`. The workflow renames the issue to include the issue author's GitHub handle so participants and facilitators can identify ownership.
 
-## Expected Comment Structure
+## Expected Comments
 
-The final comment should include:
+The issue should receive four comments:
 
-- participant handle
-- selected scenario
-- consensus root cause
-- council comparison table
-- recommended next action
-- risks and dissent
-- missing evidence
+- `Gemini Council View`
+- `Claude Council View`
+- `GPT Council View`
+- `Copilot Final Synthesis`
 
 ## Workshop Rules
 

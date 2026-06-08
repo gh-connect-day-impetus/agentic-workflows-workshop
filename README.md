@@ -65,8 +65,8 @@ The repo demonstrates a hybrid model.
 Cloud lab:
   Participant opens an issue from a prepared template
   -> GitHub Actions starts the gh-aw workflow
-  -> specialist council roles inspect the issue and evidence pack
-  -> the arbiter posts one final RCA comment
+  -> Gemini, Claude, and GPT council members inspect the issue and evidence pack
+  -> Copilot posts a final synthesis after the model-specific comments
 
 Local lab:
   Participant clones this repo
@@ -116,17 +116,15 @@ workshop:agent-council
 scenario:customer-360-schema-drift
 ```
 
-The `gh-aw` workflow reads the issue, selects the matching evidence pack, runs council roles, and comments on the issue.
+The `gh-aw` workflow reads the issue, selects the matching evidence pack, runs Gemini, Claude, and GPT council sub-agents, then has Copilot post a final synthesis.
 
 Expected output:
 
 ```text
-Agent Council RCA
-- consensus root cause
-- council comparison table
-- recommended next action
-- risks and dissent
-- missing evidence
+Gemini Council View
+Claude Council View
+GPT Council View
+Copilot Final Synthesis
 ```
 
 ## Local Lab: Fix a Tiny Pipeline
@@ -153,7 +151,7 @@ Before running the workshop:
    - `scenario:customer-360-schema-drift`
    - `scenario:cloud-cost-spike`
    - `scenario:data-quality-regression`
-5. Configure the AI engine secret required by your `gh-aw` setup.
+5. Configure `COPILOT_GITHUB_TOKEN`; the workshop uses Copilot's model routing for the Gemini, Claude, GPT, and Copilot council views.
 6. Install the `gh-aw` extension locally.
 7. Compile the workflow:
 
@@ -163,7 +161,7 @@ Before running the workshop:
    ```
 
 8. Commit and push both the Markdown workflow and generated `.lock.yml`.
-9. Create one test issue from each template and confirm exactly one council comment appears.
+9. Create one test issue from each template and confirm four comments appear: Gemini, Claude, GPT, and Copilot synthesis.
 
 ## Troubleshooting
 
