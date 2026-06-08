@@ -3,7 +3,7 @@
 Update this file before publishing the repository to the EMU organization.
 
 ```text
-ORG_NAME=<replace-with-emu-org-name>
+ORG_NAME=gh-connect-day-impetus
 REPO_NAME=agentic-workflows-workshop
 ```
 
