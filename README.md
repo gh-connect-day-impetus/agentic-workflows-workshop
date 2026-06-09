@@ -4,7 +4,7 @@ This repository is a hands-on workshop for developers who are familiar with IDE 
 
 The workshop has two labs:
 
-- **Cloud lab:** a true `gh-aw` workflow runs in GitHub Actions when a participant opens a prepared issue. An agent council analyzes the scenario and comments on the issue.
+- **Cloud lab:** a true `gh-aw` workflow runs in GitHub Actions when a participant opens an issue. An agent council analyzes prepared incident scenarios or responds to free-form issue prompts.
 - **Local lab:** participants clone the repo, run a tiny failing data pipeline test, and use IDE Agent Mode or Copilot CLI to fix it locally.
 
 ## Table of Contents
@@ -63,9 +63,9 @@ The repo demonstrates a hybrid model.
 
 ```text
 Cloud lab:
-  Participant opens an issue from a prepared template
+  Participant opens a prepared scenario issue or a free-form issue
   -> GitHub Actions starts the gh-aw workflow
-  -> Gemini, Claude, and GPT council members inspect the issue and evidence pack
+  -> Gemini, Claude, and GPT council members inspect the issue
   -> Copilot posts a final synthesis after the model-specific comments
 
 Local lab:
@@ -96,27 +96,39 @@ Participants do not need to fork the repo.
 
 1. Open the workshop repo in the EMU organization.
 2. Start with [CLOUD-LAB.md](CLOUD-LAB.md).
-3. Create one issue from one of the prepared templates.
-4. Wait for the agent council comment.
-5. Clone the repo locally.
-6. Continue with [LOCAL-LAB.md](LOCAL-LAB.md).
+3. Open one of the existing scenario issues and inspect its Actions run logs.
+4. Create one issue from a prepared template.
+5. Create one free-form issue to experiment with the workflow.
+6. Wait for the agent council comments.
+7. Clone the repo locally.
+8. Continue with [LOCAL-LAB.md](LOCAL-LAB.md).
 
 ## Cloud Lab: Agent Council RCA
 
-The cloud lab uses three one-click issue templates:
+The cloud lab has two modes.
+
+Mode 1 uses three one-click issue templates:
 
 - **Customer 360 Schema Drift RCA**
 - **Cloud Data Job Cost Spike Review**
 - **Data Quality Regression Review**
 
-Each template applies labels such as:
+Each template applies exactly one scenario label:
 
 ```text
-workshop:agent-council
 scenario:customer-360-schema-drift
 ```
 
 The `gh-aw` workflow reads the issue, selects the matching evidence pack, runs Gemini, Claude, and GPT council sub-agents, then has Copilot post a final synthesis.
+
+Mode 2 is free-form experimentation. Create a blank issue with any title and body. For example:
+
+```text
+Title: Agentic Workflows goes to Bollywood
+Body: Write a limerick in the style of Shahrukh Khan.
+```
+
+If no scenario label is present, the workflow skips evidence-pack routing and asks the models to respond directly to the issue title and body.
 
 Expected output:
 
@@ -147,7 +159,6 @@ Before running the workshop:
 2. Create the repo as `agentic-workflows-workshop` in that org.
 3. Enable Issues and Actions.
 4. Create required labels:
-   - `workshop:agent-council`
    - `scenario:customer-360-schema-drift`
    - `scenario:cloud-cost-spike`
    - `scenario:data-quality-regression`
@@ -161,16 +172,16 @@ Before running the workshop:
    ```
 
 8. Commit and push both the Markdown workflow and generated `.lock.yml`.
-9. Create one test issue from each template and confirm four comments appear: Gemini, Claude, GPT, and Copilot synthesis.
+9. Create one test issue from each template and one blank free-form issue. Confirm four comments appear on each: Gemini, Claude, GPT, and Copilot synthesis.
 
 ## Troubleshooting
 
 If an issue does not trigger the workflow:
 
-- Confirm the labels exist in the repo before the issue is created.
 - Confirm Actions are enabled.
 - Confirm the compiled `.lock.yml` was committed.
 - Confirm required AI secrets are configured.
+- For prepared scenario issues, confirm the scenario labels exist in the repo before the issue is created.
 
 If the local lab does not run:
 

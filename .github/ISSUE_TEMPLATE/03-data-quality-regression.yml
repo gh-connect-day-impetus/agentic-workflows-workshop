@@ -2,7 +2,6 @@ name: Data Quality Regression Review
 description: Trigger agent council analysis for a dashboard data quality regression.
 title: "[Agent Council][Data Quality] Pending participant"
 labels:
-  - "workshop:agent-council"
   - "scenario:data-quality-regression"
 body:
   - type: textarea

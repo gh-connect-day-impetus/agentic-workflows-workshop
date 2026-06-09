@@ -2,7 +2,6 @@ name: Cloud Data Job Cost Spike Review
 description: Trigger agent council analysis for a cloud data job cost spike.
 title: "[Agent Council][Cost Spike] Pending participant"
 labels:
-  - "workshop:agent-council"
   - "scenario:cloud-cost-spike"
 body:
   - type: textarea

@@ -2,7 +2,6 @@ name: Customer 360 Schema Drift RCA
 description: Trigger agent council analysis for a customer pipeline schema drift incident.
 title: "[Agent Council][Schema Drift] Pending participant"
 labels:
-  - "workshop:agent-council"
   - "scenario:customer-360-schema-drift"
 body:
   - type: textarea

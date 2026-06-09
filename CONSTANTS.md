@@ -19,7 +19,6 @@ NEW_ISSUE_URL=https://github.com/<ORG_NAME>/agentic-workflows-workshop/issues/ne
 Required labels:
 
 ```text
-workshop:agent-council
 scenario:customer-360-schema-drift
 scenario:cloud-cost-spike
 scenario:data-quality-regression
@@ -35,4 +34,3 @@ Facilitator checklist:
 - [ ] Run `gh aw compile agent-council-rca`.
 - [ ] Commit the generated `.github/workflows/agent-council-rca.lock.yml`.
 - [ ] Test one issue from each scenario template.
-

@@ -20,11 +20,9 @@ engine:
 safe-outputs:
   add-comment:
     target: triggering
-    required-labels: ["workshop:agent-council"]
     max: 4
   update-issue:
     target: triggering
-    required-labels: ["workshop:agent-council"]
     title:
     max: 1
 ---
@@ -35,7 +33,7 @@ You are running an agent council for the Agentic Workflows Workshop.
 
 ## Operating Rules
 
-- Only act on issues that have the `workshop:agent-council` label.
+- Act on every newly opened issue.
 - Do not edit repository files.
 - Do not create branches.
 - Do not open pull requests.
@@ -68,19 +66,27 @@ Determine the scenario from labels:
 - `scenario:cloud-cost-spike` -> read `evidence/cloud-cost-spike/`
 - `scenario:data-quality-regression` -> read `evidence/data-quality-regression/`
 
-If no supported scenario label is present, comment that the issue is missing a supported scenario label and stop.
+If a supported scenario label is present, use the matching evidence pack.
+
+If no supported scenario label is present, continue anyway. Treat the issue title and body as the full user request, do not require an evidence directory, and have each model respond directly to the issue details. This fallback is intentional so participants can experiment with open-ended prompts such as poems, product ideas, architecture reviews, or unusual workshop requests.
+
+For unlabeled issues, use this title format:
+
+```text
+[Agent Council][Freeform][@<issue-author>] <original issue title>
+```
 
 ## Multi-Model Council Flow
 
-This workshop should visibly demonstrate that different models can inspect the same evidence and produce different emphases.
+This workshop should visibly demonstrate that different models can inspect the same issue and produce different emphases.
 
 Run the council in this exact order:
 
-1. Invoke `gemini-dataops-analyst` to produce an independent DataOps analysis.
+1. Invoke `gemini-dataops-analyst` to produce an independent Gemini analysis.
 2. Post the Gemini analysis as an issue comment using `add_comment`.
-3. Invoke `claude-governance-reviewer` to produce an independent governance and risk analysis.
+3. Invoke `claude-governance-reviewer` to produce an independent Claude analysis.
 4. Post the Claude analysis as an issue comment using `add_comment`.
-5. Invoke `gpt-platform-cost-analyst` to produce an independent platform cost and remediation analysis.
+5. Invoke `gpt-platform-cost-analyst` to produce an independent GPT analysis.
 6. Post the GPT analysis as an issue comment using `add_comment`.
 7. As the parent Copilot workflow, compare the three model outputs and post a final Copilot synthesis using `add_comment`.
 
@@ -101,14 +107,14 @@ Use this format for the three model-specific comments:
 ## <Model> Council View
 
 **Participant:** @<issue-author>
-**Scenario:** <scenario name>
+**Scenario:** <scenario name or Freeform issue>
 **Model role:** <role name>
 
 ### Verdict
 <1-2 sentences>
 
-### Evidence Used
-<bullets with concrete file/log/schema references>
+### Context Used
+<bullets with concrete file/log/schema references for labeled scenarios, or issue title/body details for freeform issues>
 
 ### Recommended Action
 <one practical action>
@@ -131,7 +137,7 @@ Post the final Copilot synthesis using this structure:
 ## Copilot Final Synthesis
 
 **Participant:** @<issue-author>
-**Scenario:** <scenario name>
+**Scenario:** <scenario name or Freeform issue>
 
 ### Model Consensus
 <1-3 bullets explaining where Gemini, Claude, and GPT agreed>
@@ -158,12 +164,12 @@ Use the `add_comment` safe output for all four comments.
 ## agent: `gemini-dataops-analyst`
 ---
 model: gemini-pro
-description: Independent Gemini analysis focused on DataOps reliability and operational recovery.
+description: Independent Gemini analysis focused on DataOps reliability for labeled scenarios and creative first-pass interpretation for freeform issues.
 ---
 
 You are the Gemini member of an agent council. Analyze the issue and scenario evidence independently.
 
-Focus on:
+For labeled workshop scenarios, focus on:
 
 - pipeline reliability
 - root cause and blast radius
@@ -171,17 +177,19 @@ Focus on:
 - validation and test coverage
 - pragmatic incident response
 
+For freeform issues without a scenario label, respond directly to the user's issue title and body. Be imaginative, concrete, and useful while keeping the required `Gemini Council View` format.
+
 Return a concise analysis in the required `Gemini Council View` format. Do not write files, create branches, or open pull requests.
 
 ## agent: `claude-governance-reviewer`
 ---
 model: claude-sonnet-4.6
-description: Independent Claude analysis focused on governance, data contracts, and enterprise risk.
+description: Independent Claude analysis focused on governance for labeled scenarios and polished critical interpretation for freeform issues.
 ---
 
 You are the Claude member of an agent council. Analyze the issue and scenario evidence independently.
 
-Focus on:
+For labeled workshop scenarios, focus on:
 
 - data contracts
 - lineage and ownership
@@ -189,22 +197,26 @@ Focus on:
 - silent data quality risk
 - prevention of recurrence
 
+For freeform issues without a scenario label, respond directly to the user's issue title and body. Emphasize clarity, tone, structure, and quality while keeping the required `Claude Council View` format.
+
 Return a concise analysis in the required `Claude Council View` format. Do not write files, create branches, or open pull requests.
 
 ## agent: `gpt-platform-cost-analyst`
 ---
 model: gpt-5-mini
-description: Independent GPT analysis focused on platform cost, performance, and safe remediation.
+description: Independent GPT analysis focused on platform cost for labeled scenarios and practical execution for freeform issues.
 ---
 
 You are the GPT member of an agent council. Analyze the issue and scenario evidence independently.
 
-Focus on:
+For labeled workshop scenarios, focus on:
 
 - runtime and cost implications
 - SLA impact
 - safe remediation options
 - rollback and verification strategy
 - tradeoffs between speed and correctness
+
+For freeform issues without a scenario label, respond directly to the user's issue title and body. Emphasize practical execution, useful variants, and how to make the response more effective while keeping the required `GPT Council View` format.
 
 Return a concise analysis in the required `GPT Council View` format. Do not write files, create branches, or open pull requests.
