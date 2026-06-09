@@ -37,6 +37,7 @@ There are two ways to use the lab:
 Issue created
 -> optional scenario label is applied by a prepared template
 -> GitHub Actions starts the compiled gh-aw workflow
+-> a pre-agent job comments with the GitHub Actions run link
 -> the workflow reads the issue
 -> if a scenario label exists, the workflow reads the matching evidence files
 -> if no scenario label exists, the workflow uses the issue title and body directly
@@ -49,12 +50,15 @@ The issue title starts with `Pending participant`. The workflow renames the issu
 
 ## Expected Comments
 
-The issue should receive four comments:
+The issue should receive these model comments:
 
+- `Agent Council Run Started`
 - `Gemini Council View`
 - `Claude Council View`
 - `GPT Council View`
 - `Copilot Final Synthesis`
+
+The first comment links directly to the GitHub Actions run. Use it to inspect the workflow jobs and logs while the agent council is running.
 
 For prepared scenario issues, expect evidence-backed RCA style comments. For free-form issues, expect each model to respond directly to your prompt and then Copilot to compare their outputs.
 

@@ -65,6 +65,7 @@ The repo demonstrates a hybrid model.
 Cloud lab:
   Participant opens a prepared scenario issue or a free-form issue
   -> GitHub Actions starts the gh-aw workflow
+  -> a deterministic pre-agent job comments with the Actions run link
   -> Gemini, Claude, and GPT council members inspect the issue
   -> Copilot posts a final synthesis after the model-specific comments
 
@@ -99,9 +100,10 @@ Participants do not need to fork the repo.
 3. Open one of the existing scenario issues and inspect its Actions run logs.
 4. Create one issue from a prepared template.
 5. Create one free-form issue to experiment with the workflow.
-6. Wait for the agent council comments.
-7. Clone the repo locally.
-8. Continue with [LOCAL-LAB.md](LOCAL-LAB.md).
+6. Open the first comment to follow the GitHub Actions run.
+7. Wait for the agent council comments.
+8. Clone the repo locally.
+9. Continue with [LOCAL-LAB.md](LOCAL-LAB.md).
 
 ## Cloud Lab: Agent Council RCA
 
@@ -133,11 +135,14 @@ If no scenario label is present, the workflow skips evidence-pack routing and as
 Expected output:
 
 ```text
+Agent Council Run Started
 Gemini Council View
 Claude Council View
 GPT Council View
 Copilot Final Synthesis
 ```
+
+The workflow allows spare safe-output comment capacity so a duplicate early model comment does not prevent GPT or the Copilot arbiter from posting.
 
 ## Local Lab: Fix a Tiny Pipeline
 

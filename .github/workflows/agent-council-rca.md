@@ -13,6 +13,41 @@ on:
 permissions:
   contents: read
 
+jobs:
+  announce_run:
+    name: Comment workflow run link
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    env:
+      ISSUE_NUMBER: ${{ github.event.issue.number || github.event.inputs.issue_number }}
+      RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+    steps:
+      - name: Comment with workflow run link
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const issue_number = Number(process.env.ISSUE_NUMBER);
+            if (!issue_number) {
+              core.info('No issue number available; skipping run-link comment.');
+              return;
+            }
+
+            const body = [
+              '## Agent Council Run Started',
+              '',
+              `The agent council workflow is running here: [GitHub Actions run](${process.env.RUN_URL}).`,
+              '',
+              'Refresh this issue to see the Gemini, Claude, GPT, and Copilot comments as the workflow completes.'
+            ].join('\n');
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number,
+              body
+            });
+
 engine:
   id: copilot
   model: claude-sonnet-4.6
@@ -20,7 +55,7 @@ engine:
 safe-outputs:
   add-comment:
     target: triggering
-    max: 4
+    max: 8
   update-issue:
     target: triggering
     title:
@@ -37,7 +72,9 @@ You are running an agent council for the Agentic Workflows Workshop.
 - Do not edit repository files.
 - Do not create branches.
 - Do not open pull requests.
-- Post exactly four issue comments: one Gemini analysis, one Claude analysis, one GPT analysis, and one final Copilot synthesis.
+- Post one issue comment for each required heading: Gemini, Claude, GPT, and Copilot final synthesis.
+- Never intentionally post the same required heading twice.
+- If a duplicate model comment is accidentally posted, continue and still post the missing GPT and Copilot final synthesis comments.
 - Keep the final comment useful to a developer or data platform lead.
 
 ## First Action
@@ -98,6 +135,15 @@ Each model comment must make the model identity obvious in the heading:
 - `## Copilot Final Synthesis`
 
 Do not let one model see or rewrite another model's analysis before its own comment is posted. The final Copilot synthesis should compare the three completed analyses.
+
+Before using `add_comment`, verify which required headings have already been posted in this run:
+
+- `## Gemini Council View`
+- `## Claude Council View`
+- `## GPT Council View`
+- `## Copilot Final Synthesis`
+
+Use `add_comment` at most once for each required heading. The safe-output limit has spare capacity for reliability, but the expected user-facing result is one comment per required heading.
 
 ## Model Comment Format
 
